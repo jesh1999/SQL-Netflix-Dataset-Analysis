@@ -1,0 +1,65 @@
+--1.Returns first 100 rows from chase_.netflix
+  SELECT * FROM chase_.netflix LIMIT 100;
+
+--2. Retrieve all movies released after 2015
+--Write a query to find all movies with a release year after 2015.
+SELECT title, release_year
+FROM chase_.netflix
+WHERE release_year > 2015
+AND type = 'Movie';
+----2. Find the total number of TV shows:
+--Question: Write a query to count the number of TV shows in the dataset
+SELECT COUNT(*)
+FROM chase_.netflix
+WHERE type = 'TV Show';
+--3. List the top 5 most recent movies added to the database:
+--Question: Write a query to get the top 5 most recently added movies.
+select title, date_added from chase_.netflix WHERE type = 'Movie' ORDER BY date_added DESC limit 5; 
+--4. Find all movies directed by a specific director:
+---Question: Write a query to retrieve all movies directed by "Christopher Nolan."
+SELECT title , director FROM chase_.netflix
+WHERE director = 'Christopher Nolan'
+AND type = 'Movie';
+----7. Get all TV shows with a rating of 'TV-MA':
+---Question: Write a query to retrieve all TV shows with a 'TV-MA' rating.
+SELECT title, rating
+FROM chase_.netflix
+WHERE rating = 'TV-MA'
+AND type = 'TV Show';
+--8.List all the distinct directors:
+SELECT DISTINCT director
+FROM chase_.netflix
+WHERE director IS NOT NULL;
+---9.list all the directors:
+SELECT DISTINCT director
+FROM chase_.netflix
+WHERE director IS NULL;
+---10.Find the number of movies and TV shows by rating
+SELECT rating , type , count(*) AS total_count
+FROM chase_.netflix
+GROUP BY rating, type
+ORDER BY total_count DESC;
+--11.Retrieve movies or TV shows added in 2023
+SELECT title, release_year
+FROM chase_.netflix
+WHERE YEAR(release_year) = 2023;
+---12.Find movies or TV shows listed in multiple genres
+SELECT title, listed_in
+FROM chase_.netflix
+WHERE listed_in LIKE '%,%';
+--13.Find the most common genre across all movies and TV shows
+SELECT listed_in, COUNT(*) AS genre_count
+FROM chase_.netflix
+GROUP BY listed_in
+ORDER BY genre_count DESC
+LIMIT 1;
+---14.Find movies released before the year 2000
+SELECT title, release_year
+FROM chase_.netflix
+WHERE release_year < 2000
+AND type = 'Movie';
+
+
+
+
+
